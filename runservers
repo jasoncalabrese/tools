@@ -3,8 +3,12 @@
 # It expects to be run from a top-level directory with checkouts of various repositories at the next level down. So something like:
 # tidepool/
 #     armada/
+#     blip/
 #     hakken/
+#     jellyfish/
 #     message-api/
+#     pool-whisperer/
+#     sandcastle/
 #     seagull/
 #     styx/
 #     tools/           # containing this file
@@ -33,7 +37,7 @@ tp_warmup() {
 }
 
 tp_kill() {
-    kill $TP_PIDS
+    kill $(echo $TP_PIDS | xargs)
 }
 
 tp_killall() {
@@ -137,7 +141,7 @@ tp_jellyfish() {
 # styx
 tp_styx() {
     export HTTP_PORT=8009
-    export RULES=`cat tools/styx_rules.json`
+    export RULES="`cat tools/styx_rules.json`"
     export DISCOVERY="\
     {\
       \"host\": \"localhost:8000\"\
@@ -168,7 +172,7 @@ tp_blip() {
 }
 
 tp_warmup
-tp_mongo
+#tp_mongo
 tp_common
 tp_hakken || return
 tp_user-api || return
